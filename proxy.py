@@ -4,10 +4,11 @@ from mitmproxy.net.server_spec import ServerSpec
 from time import sleep
 import subprocess, atexit, socket, json, random
 
-USER = 'd50ded41de92755b'
-PASS = 'hduAyxiF'
-HOST = 'res.proxy-seller.com'
-PORT = random.randint(10000, 10049)
+# :::
+USER = 'YPKN9q5sVocz4aMv'
+PASS = '01306004290_country-bd_city-dhaka_session-ITIdDm4t_lifetime-24h_skipispstatic-1'
+HOST = 'geo.iproyal.com'
+PORT = 11200
 
 
 def get_free_port():

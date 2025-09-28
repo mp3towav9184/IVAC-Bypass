@@ -2,7 +2,9 @@ from DrissionPage import ChromiumPage, ChromiumOptions
 from proxy import runProxyServer
 
 PORT = runProxyServer()
+
 print('Server Running...')
+
 opts = ChromiumOptions()
 opts \
     .auto_port() \
