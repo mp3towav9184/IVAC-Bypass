@@ -66,6 +66,7 @@ def runProxyServer(wait=False):
             s.settimeout(10)
             if s.connect_ex(('127.0.0.1', PORT)) == 0: break
         sleep(1)
+        print('Waiting to run server...')
 
     if wait:
         print('ProxyServer is running on port', PORT)
