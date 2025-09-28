@@ -6,13 +6,4 @@ proxies = None
 # proxies = dict(http=pr, https=pr)
 # r = get('https://payment.ivacbd.com/', proxies=proxies)
 # print(r.text)
-r = get('https://abacus.jasoncameron.dev/get/ivac/bypass', proxies=proxies)
-print(r.json().get('value'))
 
-from requests import get
-import os
-
-if get('https://abacus.jasoncameron.dev/get/ivac/bypass').json().get('value') > 10:
-    os._exit(1)
-
-    

@@ -8,7 +8,7 @@ from string import ascii_letters, digits
 SESSION = ''.join(random.choices(ascii_letters + digits, k=8))
 
 USER = 'YPKN9q5sVocz4aMv'
-PASS = f'01306004290_country-bd_city-dhaka_session-{SESSION}_lifetime-15m_skipispstatic-1'
+PASS = f'01306004290_country-bd_city-dhaka_session-{SESSION}_lifetime-4h_skipispstatic-1'
 HOST = 'geo.iproyal.com'
 PORT = 11200
 
@@ -33,8 +33,9 @@ def request(flow: http.HTTPFlow) -> None:
         if flow.killable: flow.kill()
         else: flow.response = http.Response.make(400, "Request Block for better bypass", {"Content-Type": "text/plain"})
     
+    # /api/v2/is-slot-available
     if '/is-slot-available' in url: 
-        flow.response = http.Response.make(200, json.dumps({"status": "success", "status_code": 200, "message": "Slot available - Cracked", "data": {"slot_available": True, "ivac_fees": "30"}, "meta": []}), {"Content-Type": 'application/json'})
+        flow.response = http.Response.make(200, json.dumps({"status": "success", "status_code": 200, "message": "Slot Cracked", "data": {"slot_available": True, "ivac_fees": "30"}, "meta": []}), {"Content-Type": 'application/json'})
         pass
 
     flow.server_conn = Server(address=flow.server_conn.address)

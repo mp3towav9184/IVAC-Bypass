@@ -1,4 +1,4 @@
-from DrissionPage import ChromiumPage, ChromiumOptions
+from DrissionPage import ChromiumPage, ChromiumOptions, errors
 from proxy import runProxyServer
 import time, traceback
 
@@ -20,10 +20,11 @@ page.get('https://payment.ivacbd.com/')
 
 while 1:
     try: page.run_js("console.log('PING: Bypass Server')")
+    except (errors.PageDisconnectedError): break
     except Exception as err:
         # traceback.print_exc()
-        print(f'[-] QUITTING BECAUSE OF ERROR: {err}')
-        break
+        # print(f'[-] ERROR ({type(err)}): {err}')
+        pass
     time.sleep(1)
 
 
