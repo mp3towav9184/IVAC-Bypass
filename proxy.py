@@ -56,10 +56,9 @@ def request(flow: http.HTTPFlow) -> None:
 
 
 def runProxyServer(wait=False):
-    print(__file__)
     PORT = get_free_port()
-    p = subprocess.Popen(f'mitmdump -s "{__file__}" --listen-port {PORT} --upstream-auth {USER}:{PASS}'.split(
-    ),  stderr=subprocess.STDOUT)
+    # p = subprocess.Popen(f'mitmdump -s "{__file__}" --listen-port {PORT} --upstream-auth {USER}:{PASS}'.split(
+    p = subprocess.Popen(['mitmdump', '-s', __file__, '--listen-port', str(PORT), '--upstream-auth', f'{USER}:{PASS}'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     atexit.register(p.kill)
 
     while 1:
@@ -67,7 +66,6 @@ def runProxyServer(wait=False):
             s.settimeout(10)
             if s.connect_ex(('127.0.0.1', PORT)) == 0: break
         sleep(1)
-        print('Waiting for the server to be run')
 
     if wait:
         print('ProxyServer is running on port', PORT)
