@@ -3,10 +3,12 @@ from mitmproxy.connection import Server
 from mitmproxy.net.server_spec import ServerSpec
 from time import sleep
 import subprocess, atexit, socket, json, random
+from string import ascii_letters, digits
 
-# :::
+SESSION = ''.join(random.choices(ascii_letters + digits, k=8))
+
 USER = 'YPKN9q5sVocz4aMv'
-PASS = '01306004290_country-bd_city-dhaka_session-ITIdDm4t_lifetime-24h_skipispstatic-1'
+PASS = f'01306004290_country-bd_city-dhaka_session-{SESSION}_lifetime-15m_skipispstatic-1'
 HOST = 'geo.iproyal.com'
 PORT = 11200
 
@@ -41,8 +43,8 @@ def request(flow: http.HTTPFlow) -> None:
         flow.response = http.Response.make(200, json.dumps({"status": "success", "status_code": 200, "message": "Slot available - Cracked", "data": {"slot_available": True, "ivac_fees": "30"}, "meta": []}), {"Content-Type": 'application/json'})
         pass
 
-    # flow.server_conn = Server(address=flow.server_conn.address)
-    # flow.server_conn.via = ServerSpec(('http', (HOST, PORT)))
+    flow.server_conn = Server(address=flow.server_conn.address)
+    flow.server_conn.via = ServerSpec(('http', (HOST, PORT)))
 
 
 # def response(flow: http.HTTPFlow) -> None:
@@ -59,7 +61,7 @@ def request(flow: http.HTTPFlow) -> None:
 def runProxyServer(wait=False):
     PORT = get_free_port()
     # p = subprocess.Popen(f'mitmdump -s "{__file__}" --listen-port {PORT} --upstream-auth {USER}:{PASS}'.split(
-    p = subprocess.Popen(['mitmdump', '-s', __file__, '--listen-port', str(PORT), '--mode', f'upstream:http://{HOST}:{PORT}', '--upstream-auth', f'{USER}:{PASS}'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    p = subprocess.Popen(['mitmdump', '-s', __file__, '--listen-port', str(PORT), '--upstream-auth', f'{USER}:{PASS}'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     atexit.register(p.kill)
 
     while 1:
