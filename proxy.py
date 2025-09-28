@@ -40,8 +40,8 @@ def request(flow: http.HTTPFlow) -> None:
         flow.response = http.Response.make(200, json.dumps({"status": "success", "status_code": 200, "message": "Slot available - Cracked", "data": {"slot_available": True, "ivac_fees": "30"}, "meta": []}), {"Content-Type": 'application/json'})
         pass
 
-    flow.server_conn = Server(address=flow.server_conn.address)
-    flow.server_conn.via = ServerSpec(('http', (HOST, PORT)))
+    # flow.server_conn = Server(address=flow.server_conn.address)
+    # flow.server_conn.via = ServerSpec(('http', (HOST, PORT)))
 
 
 # def response(flow: http.HTTPFlow) -> None:
@@ -58,7 +58,7 @@ def request(flow: http.HTTPFlow) -> None:
 def runProxyServer(wait=False):
     PORT = get_free_port()
     # p = subprocess.Popen(f'mitmdump -s "{__file__}" --listen-port {PORT} --upstream-auth {USER}:{PASS}'.split(
-    p = subprocess.Popen(['mitmdump', '-s', __file__, '--listen-port', str(PORT), '--upstream-auth', f'{USER}:{PASS}'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    p = subprocess.Popen(['mitmdump', '-s', __file__, '--listen-port', str(PORT), '--mode', f'upstream:http://{HOST}:{PORT}', '--upstream-auth', f'{USER}:{PASS}'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     atexit.register(p.kill)
 
     while 1:
