@@ -35,7 +35,7 @@ def request(flow: http.HTTPFlow) -> None:
     
     # /api/v2/is-slot-available
     if '/is-slot-available' in url: 
-        flow.response = http.Response.make(200, json.dumps({"status": "success", "status_code": 200, "message": "Slot Cracked", "data": {"slot_available": True, "ivac_fees": "30"}, "meta": []}), {"Content-Type": 'application/json'})
+        flow.response = http.Response.make(200, json.dumps({"status": "success", "status_code": 200, "message": "Slot Cracked", "data": {"slot_available": True, "ivac_fees": "1500"}, "meta": []}), {"Content-Type": 'application/json'})
         pass
 
     flow.server_conn = Server(address=flow.server_conn.address)
