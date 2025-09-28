@@ -58,7 +58,7 @@ def request(flow: http.HTTPFlow) -> None:
 def runProxyServer(wait=False):
     PORT = get_free_port()
     p = subprocess.Popen(f'mitmdump -s "{__file__}" --listen-port {PORT} --upstream-auth {USER}:{PASS}'.split(
-    ), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    ), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     atexit.register(p.kill)
 
     while 1:
